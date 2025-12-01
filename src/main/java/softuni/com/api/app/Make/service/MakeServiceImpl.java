@@ -111,6 +111,7 @@ public class MakeServiceImpl implements MakeService {
 			modelRepository.save(model);
 		});
 		make.get().setDeletedAt(LocalDateTime.now());
+		makeRepository.save(make.get());
 		return "Успешно изтрита марка: " + make.get().getName();
 	}
 }
