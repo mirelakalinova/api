@@ -2,15 +2,14 @@ package softuni.com.api.app.Make.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import softuni.com.api.app.Make.data.dto.ListMakeDto;
 import softuni.com.api.app.Make.service.MakeService;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("api")
@@ -35,6 +34,14 @@ public class MakeController {
 		} catch (Exception e) {
 			return ResponseEntity.status(500).body(null);
 		}
+		
+	}
+	
+	@PostMapping("/delete/make/{id}")
+	@ResponseBody
+	public ResponseEntity<String> deleteMake(@PathVariable String id) {
+		UUID uuid = UUID.fromString(id);
+		return ResponseEntity.ok(makeService.deleteMake(uuid));
 		
 	}
 }

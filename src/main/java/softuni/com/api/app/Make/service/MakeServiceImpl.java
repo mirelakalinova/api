@@ -49,7 +49,7 @@ public class MakeServiceImpl implements MakeService {
 	
 	public void updateMakesData(ListMakesDto makesListDto) {
 		
-		log.info("Updating {} models.", makesListDto.getResults().size());
+		log.info("Updating {} makes.", makesListDto.getResults().size());
 		makesListDto.getResults().forEach((m) -> {
 			boolean makeExist = findByMakeId(m.getMakeId());
 			if (!makeExist) {

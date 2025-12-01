@@ -44,7 +44,6 @@ public class ModelController {
 	
 	@PostMapping("/save")
 	@ResponseBody
-	
 	public ResponseEntity<String> createMakeModel(@RequestBody SaveModelDto saveMakeModelDto) {
 		String make = saveMakeModelDto.getMakeName();
 		String model = saveMakeModelDto.getModelName();
@@ -52,4 +51,13 @@ public class ModelController {
 		return ResponseEntity.ok(result);
 		
 	}
+	
+	@PostMapping("/delete/model/{id}")
+	@ResponseBody
+	public ResponseEntity<String> deleteModel(@PathVariable String id) {
+		UUID uuid = UUID.fromString(id);
+		return ResponseEntity.ok(modelService.deleteModel(uuid));
+		
+	}
+	
 }
