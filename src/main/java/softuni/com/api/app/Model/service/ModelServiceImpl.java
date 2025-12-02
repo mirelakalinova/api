@@ -104,6 +104,7 @@ public class ModelServiceImpl implements ModelService {
 		Optional<CarModel> model = modelRepository.findByName(modelName);
 		if (model.isEmpty()) {
 			model = Optional.of(new CarModel());
+			model.get().setName(modelName);
 			model.get().setMake(make);
 			modelRepository.save(model.get());
 			sb.append("Успешно запазен модел: ").append(modelName).append(" към марка: ").append(makeName);
