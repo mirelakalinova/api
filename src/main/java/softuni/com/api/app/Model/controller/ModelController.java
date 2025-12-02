@@ -1,10 +1,10 @@
-package softuni.com.api.app.Model.controller;
+package softuni.com.api.app.model.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import softuni.com.api.app.Model.data.dto.SaveModelDto;
-import softuni.com.api.app.Model.service.ModelService;
+import softuni.com.api.app.model.data.dto.SaveModelDto;
+import softuni.com.api.app.model.service.ModelService;
 
 import java.util.HashMap;
 import java.util.Map;

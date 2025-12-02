@@ -1,7 +1,7 @@
-package softuni.com.api.app.Model.data.entity;
+package softuni.com.api.app.model.data.entity;
 
 import jakarta.persistence.*;
-import softuni.com.api.app.Make.data.entity.Make;
+import softuni.com.api.app.make.data.entity.Make;
 
 import java.time.LocalDateTime;
 import java.util.UUID;

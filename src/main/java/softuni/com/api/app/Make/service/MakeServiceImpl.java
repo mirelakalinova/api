@@ -1,4 +1,4 @@
-package softuni.com.api.app.Make.service;
+package softuni.com.api.app.make.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -7,12 +7,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-import softuni.com.api.app.Make.data.dto.ListMakeDto;
-import softuni.com.api.app.Make.data.dto.ListMakesDto;
-import softuni.com.api.app.Make.data.entity.Make;
-import softuni.com.api.app.Make.repo.MakeRepository;
-import softuni.com.api.app.Model.data.entity.CarModel;
-import softuni.com.api.app.Model.repo.ModelRepository;
+import softuni.com.api.app.make.data.dto.ListMakeDto;
+import softuni.com.api.app.make.data.dto.ListMakesDto;
+import softuni.com.api.app.make.data.entity.Make;
+import softuni.com.api.app.make.repo.MakeRepository;
+import softuni.com.api.app.model.data.entity.CarModel;
+import softuni.com.api.app.model.repo.ModelRepository;
 import softuni.com.api.config.RestClient;
 
 import java.time.LocalDateTime;
@@ -85,13 +85,13 @@ public class MakeServiceImpl implements MakeService {
 		return this.saveMake(make.get());
 	}
 	
-	private Optional<Make> findByName(String make) {
+	public Optional<Make> findByName(String make) {
 		return makeRepository.findByName(make);
 	}
 	
 
 	private Make saveMake(Make make) {
-		makeRepository.save(make);
+		makeRepository.saveAndFlush(make);
 		Optional<Make> makeToReturn = makeRepository.findByName(make.getName());
 		if (makeToReturn.isPresent()) {
 			return makeToReturn.get();

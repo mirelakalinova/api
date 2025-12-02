@@ -2,8 +2,8 @@ package softuni.com.api.app.init;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
-import softuni.com.api.app.Make.service.MakeService;
-import softuni.com.api.app.Model.service.ModelService;
+import softuni.com.api.app.make.service.MakeService;
+import softuni.com.api.app.model.service.ModelService;
 
 @Component
 public class MakesAndModelsInit implements CommandLineRunner {

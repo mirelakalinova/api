@@ -1,10 +1,10 @@
-package softuni.com.api.app.Make.controller;
+package softuni.com.api.app.make.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import softuni.com.api.app.Make.data.dto.ListMakeDto;
-import softuni.com.api.app.Make.service.MakeService;
+import softuni.com.api.app.make.data.dto.ListMakeDto;
+import softuni.com.api.app.make.service.MakeService;
 
 import java.util.HashMap;
 import java.util.List;

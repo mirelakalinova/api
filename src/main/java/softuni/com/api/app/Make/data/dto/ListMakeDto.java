@@ -1,4 +1,4 @@
-package softuni.com.api.app.Make.data.dto;
+package softuni.com.api.app.make.data.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

@@ -7,8 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import softuni.com.api.app.Make.service.MakeService;
-import softuni.com.api.app.Model.service.ModelService;
+import softuni.com.api.app.make.service.MakeService;
+import softuni.com.api.app.model.service.ModelService;
 
 @Component
 @Slf4j

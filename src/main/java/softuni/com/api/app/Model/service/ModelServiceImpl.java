@@ -1,4 +1,4 @@
-package softuni.com.api.app.Model.service;
+package softuni.com.api.app.model.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -7,13 +7,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
-import softuni.com.api.app.Make.data.entity.Make;
-import softuni.com.api.app.Make.service.MakeService;
-import softuni.com.api.app.Model.data.dto.AllModelsDtoByMake;
-import softuni.com.api.app.Model.data.dto.ListModelDto;
-import softuni.com.api.app.Model.data.dto.ModelDtoByMake;
-import softuni.com.api.app.Model.data.entity.CarModel;
-import softuni.com.api.app.Model.repo.ModelRepository;
+import softuni.com.api.app.make.data.entity.Make;
+import softuni.com.api.app.make.service.MakeService;
+import softuni.com.api.app.model.data.dto.AllModelsDtoByMake;
+import softuni.com.api.app.model.data.dto.ListModelDto;
+import softuni.com.api.app.model.data.dto.ModelDtoByMake;
+import softuni.com.api.app.model.data.entity.CarModel;
+import softuni.com.api.app.model.repo.ModelRepository;
 import softuni.com.api.config.RestClient;
 
 import java.time.LocalDateTime;

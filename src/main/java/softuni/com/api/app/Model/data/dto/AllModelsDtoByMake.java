@@ -1,6 +1,4 @@
-package softuni.com.api.app.Model.data.dto;
-
-import softuni.com.api.app.Make.data.dto.ListMakeDto;
+package softuni.com.api.app.model.data.dto;
 
 import java.util.UUID;
 

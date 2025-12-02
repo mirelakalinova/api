@@ -1,9 +1,9 @@
-package softuni.com.api.app.Model.repo;
+package softuni.com.api.app.model.repo;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import softuni.com.api.app.Make.data.entity.Make;
-import softuni.com.api.app.Model.data.entity.CarModel;
+import softuni.com.api.app.make.data.entity.Make;
+import softuni.com.api.app.model.data.entity.CarModel;
 
 import java.util.List;
 import java.util.Optional;

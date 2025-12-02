@@ -1,6 +1,6 @@
-package softuni.com.api.app.Model.data.dto;
+package softuni.com.api.app.model.data.dto;
 
-import softuni.com.api.app.Make.data.dto.ListMakeDto;
+import softuni.com.api.app.make.data.dto.ListMakeDto;
 
 public class ModelDtoByMake {
 

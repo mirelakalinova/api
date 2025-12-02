@@ -1,11 +1,10 @@
-package softuni.com.api.app.Make.service;
+package softuni.com.api.app.make.service;
 
-import softuni.com.api.app.Make.data.dto.ListMakeDto;
-import softuni.com.api.app.Make.data.dto.ListMakesDto;
-import softuni.com.api.app.Make.data.entity.Make;
+import softuni.com.api.app.make.data.dto.ListMakeDto;
+import softuni.com.api.app.make.data.dto.ListMakesDto;
+import softuni.com.api.app.make.data.entity.Make;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 public interface MakeService {

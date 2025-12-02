@@ -1,4 +1,4 @@
-package softuni.com.api.app.Model.data.dto;
+package softuni.com.api.app.model.data.dto;
 
 public class SaveModelDto {
 	private String makeName;

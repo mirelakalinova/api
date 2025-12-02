@@ -1,8 +1,8 @@
-package softuni.com.api.app.Model.service;
+package softuni.com.api.app.model.service;
 
-import softuni.com.api.app.Model.data.dto.AllModelsDtoByMake;
-import softuni.com.api.app.Model.data.dto.ListModelDto;
-import softuni.com.api.app.Model.data.dto.ModelDtoByMake;
+import softuni.com.api.app.model.data.dto.AllModelsDtoByMake;
+import softuni.com.api.app.model.data.dto.ListModelDto;
+import softuni.com.api.app.model.data.dto.ModelDtoByMake;
 
 import java.util.List;
 import java.util.UUID;

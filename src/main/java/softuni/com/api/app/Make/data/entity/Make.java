@@ -1,7 +1,7 @@
-package softuni.com.api.app.Make.data.entity;
+package softuni.com.api.app.make.data.entity;
 
 import jakarta.persistence.*;
-import softuni.com.api.app.Model.data.entity.CarModel;
+import softuni.com.api.app.model.data.entity.CarModel;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
