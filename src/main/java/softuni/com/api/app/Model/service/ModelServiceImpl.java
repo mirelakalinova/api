@@ -41,6 +41,7 @@ public class ModelServiceImpl implements ModelService {
 	}
 	
 	public ListModelDto fetchModelsData() {
+		log.info("Attempt to fetch all models from vpic.nhtsa.dot.gov API ");
 		return restClient.getAllModels();
 	}
 	
@@ -66,6 +67,7 @@ public class ModelServiceImpl implements ModelService {
 	
 	@Override
 	public List<ModelDtoByMake> getAllModelsByMakeId(UUID makeId) {
+		log.info("Attempt to get all models..");
 		
 		return modelRepository.findAllByMake_IdAndDeletedAtNullOrderByNameAsc(makeId).stream()
 				.map(model -> modelMapper.map(model, ModelDtoByMake.class))
@@ -74,6 +76,8 @@ public class ModelServiceImpl implements ModelService {
 	
 	@Override
 	public List<AllModelsDtoByMake> getAllModelsWithMakes() {
+		log.info("Attempt to get all models with make names..");
+		
 		List<CarModel> rawList = modelRepository.findAllByDeletedAtNull();
 		List<AllModelsDtoByMake> list = new ArrayList<>();
 		rawList.forEach(m ->
@@ -94,6 +98,7 @@ public class ModelServiceImpl implements ModelService {
 	
 	@Override
 	public String saveMakeWithModel(String makeName, String modelName) {
+		log.info("Attempt to save model with name {} and make name {}", modelName, makeName);
 		StringBuilder sb = new StringBuilder();
 		Make make = makeService.getMakeByName(makeName);
 		Optional<CarModel> model = modelRepository.findByName(modelName);
@@ -102,9 +107,11 @@ public class ModelServiceImpl implements ModelService {
 			model.get().setMake(make);
 			modelRepository.save(model.get());
 			sb.append("Успешно запазен модел: ").append(modelName).append(" към марка: ").append(makeName);
+			log.info("Successfully saved model with name {} and make name {}", modelName, makeName);
 			return sb.toString();
 		}
 		if (model.get().getMake().getName().equals(makeName)) {
+			log.info("Model with name {} and make name {} already exist!", modelName, makeName);
 			return "Модел: " + modelName + " и марка " + makeName + " вече съществуват!";
 		}
 		
@@ -113,17 +120,21 @@ public class ModelServiceImpl implements ModelService {
 		newModel.setName(modelName);
 		modelRepository.save(newModel);
 		sb.append("Успешно запазен модел: ").append(modelName).append(" към марка: ").append(makeName);
+		log.info("Successfully saved model with name {} and make name {}", modelName, makeName);
 		return sb.toString();
 	}
 	
 	@Override
 	public String deleteModel(UUID id) {
+		log.info("Attempt to delete model with id {} ", id);
 		Optional<CarModel> model = modelRepository.findById(id);
 		if (model.isEmpty()) {
+			log.error("Response Status Exception in delete model method: make with id {}", id);
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Модел с #" + id + " не съществува!");
 		}
 		model.get().setDeletedAt(LocalDateTime.now());
 		modelRepository.save(model.get());
+		log.info("Successfully deleted model with id {} ", id);
 		return "Успешно изтрит модел: " + model.get().getName();
 	}
 }

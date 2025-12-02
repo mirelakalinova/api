@@ -1,5 +1,8 @@
 package softuni.com.api.app.make.controller;
 
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +16,9 @@ import java.util.UUID;
 
 @Controller
 @RequestMapping("api")
+@Slf4j
 public class MakeController {
+	private static final Logger log = LoggerFactory.getLogger(MakeController.class);
 	private final MakeService makeService;
 	
 	public MakeController(MakeService makeService) {
@@ -23,15 +28,17 @@ public class MakeController {
 	@GetMapping("/makes")
 	@ResponseBody
 	public ResponseEntity<Map<String, Object>> getAllMakes() {
-		
+		log.info("Attempt to get all makes from api/makes..");
 		HashMap<String, Object> response = new HashMap<>();
 		try {
 			
 			List<ListMakeDto> makes = makeService.getAllMakes();
 			
 			response.put("makes", makes);
+			log.info("Successfully get {}  makes from api/makes..", makes.size());
 			return ResponseEntity.ok(response);
 		} catch (Exception e) {
+			log.error("Return error 500 status code when get all makes from api/makes..");
 			return ResponseEntity.status(500).body(null);
 		}
 		
@@ -40,6 +47,7 @@ public class MakeController {
 	@PostMapping("/delete/make/{id}")
 	@ResponseBody
 	public ResponseEntity<String> deleteMake(@PathVariable String id) {
+		log.info("Attempt to delete make from /api/delete/make/{}", id);
 		UUID uuid = UUID.fromString(id);
 		return ResponseEntity.ok(makeService.deleteMake(uuid));
 		
