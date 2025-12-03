@@ -51,12 +51,12 @@ public class ModelController {
 	
 	@PostMapping("/save")
 	@ResponseBody
-	public ResponseEntity<String> createMakeModel(@RequestBody SaveModelDto saveMakeModelDto) {
+	public ResponseEntity<HashMap<String,String>> createMakeModel(@RequestBody SaveModelDto saveMakeModelDto) {
 		log.info("Attempt to save model {} with make {} ..", saveMakeModelDto.getModelName(), saveMakeModelDto.getMakeName());
 		
 		String make = saveMakeModelDto.getMakeName();
 		String model = saveMakeModelDto.getModelName();
-		String result = modelService.saveMakeWithModel(make, model);
+		HashMap<String,String> result = modelService.saveMakeWithModel(make, model);
 		return ResponseEntity.ok(result);
 		
 	}

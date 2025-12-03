@@ -56,7 +56,7 @@ public class ModelServiceImpl implements ModelService {
 				model = new CarModel();
 				Make make = makeService.getMakeByName(makeName);
 				model.setMake(make);
-				model.setName(m.getModelName());
+				model.setName(m.getModelName().toUpperCase());
 				model.setModelId(m.getModelId());
 			}
 			modelRepository.saveAndFlush(model);
@@ -97,32 +97,38 @@ public class ModelServiceImpl implements ModelService {
 	}
 	
 	@Override
-	public String saveMakeWithModel(String makeName, String modelName) {
+	public HashMap<String, String> saveMakeWithModel(String makeName, String modelName) {
 		log.info("Attempt to save model with name {} and make name {}", modelName, makeName);
-		StringBuilder sb = new StringBuilder();
+		HashMap<String, String> result = new HashMap<>();
+		
 		Make make = makeService.getMakeByName(makeName);
 		Optional<CarModel> model = modelRepository.findByName(modelName);
 		if (model.isEmpty()) {
 			model = Optional.of(new CarModel());
-			model.get().setName(modelName);
+			model.get().setName(modelName.toUpperCase());
 			model.get().setMake(make);
 			modelRepository.save(model.get());
-			sb.append("Успешно запазен модел: ").append(modelName).append(" към марка: ").append(makeName);
+			result.put("message", "Успешно запазен модел: " + modelName + " към марка: "+ makeName);
+			result.put("status", "success");
 			log.info("Successfully saved model with name {} and make name {}", modelName, makeName);
-			return sb.toString();
+			return result;
 		}
 		if (model.get().getMake().getName().equals(makeName)) {
 			log.info("Model with name {} and make name {} already exist!", modelName, makeName);
-			return "Модел: " + modelName + " и марка " + makeName + " вече съществуват!";
+			result.put("message", "Модел: " + modelName + " и марка: "+ makeName + " вече съществуват!");
+			result.put("status", "error");
+			return result;
 		}
 		
 		CarModel newModel = new CarModel();
 		newModel.setMake(make);
 		newModel.setName(modelName);
 		modelRepository.save(newModel);
-		sb.append("Успешно запазен модел: ").append(modelName).append(" към марка: ").append(makeName);
+		result.put("message", "Успешно запазен модел: " + modelName + " към марка: "+ makeName);
+		result.put("status", "success");
+		
 		log.info("Successfully saved model with name {} and make name {}", modelName, makeName);
-		return sb.toString();
+		return result;
 	}
 	
 	@Override

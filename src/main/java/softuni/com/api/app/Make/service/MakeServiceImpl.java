@@ -57,7 +57,7 @@ public class MakeServiceImpl implements MakeService {
 			if (!makeExist) {
 				Make make = new Make();
 				make.setMakeId(m.getMakeId());
-				make.setName(m.getMakeName());
+				make.setName(m.getMakeName().toUpperCase());
 				makeRepository.saveAndFlush(make);
 			}
 		});
@@ -99,6 +99,7 @@ public class MakeServiceImpl implements MakeService {
 
 	private Make saveMake(Make make) {
 		log.info("Attempt to save make with name {} ", make.getName());
+		make.setName(make.getName().toUpperCase());
 		makeRepository.saveAndFlush(make);
 		Optional<Make> makeToReturn = makeRepository.findByName(make.getName());
 		if (makeToReturn.isPresent()) {

@@ -4,6 +4,7 @@ import softuni.com.api.app.model.data.dto.AllModelsDtoByMake;
 import softuni.com.api.app.model.data.dto.ListModelDto;
 import softuni.com.api.app.model.data.dto.ModelDtoByMake;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -17,6 +18,6 @@ public interface ModelService {
 	List<ModelDtoByMake> getAllModelsByMakeId(UUID makeId);
 	List<AllModelsDtoByMake> getAllModelsWithMakes();
 	
-	String saveMakeWithModel(String makeName, String modelName);
+	HashMap<String, String> saveMakeWithModel(String makeName, String modelName);
 	String deleteModel(UUID id);
 }
