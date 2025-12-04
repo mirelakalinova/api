@@ -22,10 +22,7 @@ import softuni.com.api.app.model.repo.ModelRepository;
 import softuni.com.api.config.RestClient;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -168,11 +165,11 @@ public class MakeUTest {
 	@Test
 	void deleteMakeById_Success() {
 		when(makeRepository.findById(makeFirst.getId())).thenReturn(Optional.of(makeFirst));
-		String result = makeService.deleteMake(makeFirst.getId());
+		HashMap<String,String> result = makeService.deleteMake(makeFirst.getId());
 		verify(makeRepository).save(makeFirst);
 		assertNotNull(makeFirst);
 		assertNotNull(makeFirst.getDeletedAt());
-		assertEquals("Успешно изтрита марка: Test", result);
+		assertEquals("Успешно изтрита марка: Test", result.get("message"));
 	}
 	
 	@Test
@@ -193,14 +190,14 @@ public class MakeUTest {
 		
 		when(makeRepository.findById(uuid)).thenReturn(Optional.of(makeFirst));
 		when(modelRepository.findAllByMake(makeFirst)).thenReturn(List.of(model));
-		String result = makeService.deleteMake(makeFirst.getId());
+		HashMap<String,String> result = makeService.deleteMake(makeFirst.getId());
 		verify(makeRepository).save(makeFirst);
 		verify(modelRepository).save(model);
 		assertNotNull(makeFirst);
 		assertNotNull(model);
 		assertNotNull(makeFirst.getDeletedAt());
 		assertNotNull(model.getDeletedAt());
-		assertEquals("Успешно изтрита марка: Test", result);
+		assertEquals("Успешно изтрита марка: Test", result.get("message"));
 	}
 	
 	

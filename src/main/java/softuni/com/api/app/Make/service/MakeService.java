@@ -4,6 +4,7 @@ import softuni.com.api.app.make.data.dto.ListMakeDto;
 import softuni.com.api.app.make.data.dto.ListMakesDto;
 import softuni.com.api.app.make.data.entity.Make;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,6 +20,6 @@ public interface MakeService {
 	List<ListMakeDto> getAllMakes();
 	
 	 Make getMakeByName(String makeName);
-	 
-	 String deleteMake(UUID id);
+	
+	HashMap<String, String> deleteMake(UUID id);
 }

@@ -16,6 +16,7 @@ import softuni.com.api.app.model.data.entity.CarModel;
 import softuni.com.api.app.model.repo.ModelRepository;
 import softuni.com.api.app.model.service.ModelServiceImpl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -153,14 +154,14 @@ public class CarModelUTest {
 		
 		when(modelRepository.findById(uuid)).thenReturn(Optional.of(modelFirst));
 		
-		String result = modelService.deleteModel(modelFirst.getId());
+		HashMap<String, String> result = modelService.deleteModel(modelFirst.getId());
 		
 		verify(modelRepository).save(modelFirst);
 		
 		assertNotNull(modelFirst);
 		
 		assertNotNull(modelFirst.getDeletedAt());
-		assertEquals("Успешно изтрит модел: Test", result);
+		assertEquals("Успешно изтрит модел: Test", result.get("message"));
 	}
 	
 	

@@ -16,10 +16,7 @@ import softuni.com.api.app.model.repo.ModelRepository;
 import softuni.com.api.config.RestClient;
 
 import java.time.LocalDateTime;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 @Slf4j
@@ -111,7 +108,9 @@ public class MakeServiceImpl implements MakeService {
 	}
 	
 	@Override
-	public String deleteMake(UUID id) {
+	public HashMap<String, String> deleteMake(UUID id) {
+		HashMap<String, String> result = new HashMap<>();
+		
 		log.info("Attempt to delete make with id {} ", id);
 		Optional<Make> make = makeRepository.findById(id);
 		if(make.isEmpty()){
@@ -128,6 +127,8 @@ public class MakeServiceImpl implements MakeService {
 		make.get().setDeletedAt(LocalDateTime.now());
 		makeRepository.save(make.get());
 		log.info("Successfully deleted make with id {} ", id);
-		return "Успешно изтрита марка: " + make.get().getName();
+		result.put("status", "success");
+		result.put("message", "Успешно изтрита марка: " + make.get().getName());
+		return result;
 	}
 }

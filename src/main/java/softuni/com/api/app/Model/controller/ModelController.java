@@ -63,7 +63,7 @@ public class ModelController {
 	
 	@PostMapping("/delete/model/{id}")
 	@ResponseBody
-	public ResponseEntity<String> deleteModel(@PathVariable String id) {
+	public ResponseEntity<HashMap<String, String>> deleteModel(@PathVariable String id) {
 		log.info("Attempt to delete model from /api/delete/model/{}", id);
 		UUID uuid = UUID.fromString(id);
 		return ResponseEntity.ok(modelService.deleteModel(uuid));

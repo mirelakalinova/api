@@ -19,5 +19,5 @@ public interface ModelService {
 	List<AllModelsDtoByMake> getAllModelsWithMakes();
 	
 	HashMap<String, String> saveMakeWithModel(String makeName, String modelName);
-	String deleteModel(UUID id);
+	HashMap<String, String> deleteModel(UUID id);
 }

@@ -46,7 +46,7 @@ public class MakeController {
 	
 	@PostMapping("/delete/make/{id}")
 	@ResponseBody
-	public ResponseEntity<String> deleteMake(@PathVariable String id) {
+	public ResponseEntity<HashMap<String,String>> deleteMake(@PathVariable String id) {
 		log.info("Attempt to delete make from /api/delete/make/{}", id);
 		UUID uuid = UUID.fromString(id);
 		return ResponseEntity.ok(makeService.deleteMake(uuid));

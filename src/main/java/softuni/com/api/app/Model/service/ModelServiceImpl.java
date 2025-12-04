@@ -132,7 +132,8 @@ public class ModelServiceImpl implements ModelService {
 	}
 	
 	@Override
-	public String deleteModel(UUID id) {
+	public HashMap<String, String> deleteModel(UUID id) {
+		HashMap<String, String> result = new HashMap<>();
 		log.info("Attempt to delete model with id {} ", id);
 		Optional<CarModel> model = modelRepository.findById(id);
 		if (model.isEmpty()) {
@@ -142,6 +143,8 @@ public class ModelServiceImpl implements ModelService {
 		model.get().setDeletedAt(LocalDateTime.now());
 		modelRepository.save(model.get());
 		log.info("Successfully deleted model with id {} ", id);
-		return "Успешно изтрит модел: " + model.get().getName();
+		result.put("status", "success");
+		result.put("message", "Успешно изтрит модел: " + model.get().getName());
+		return result;
 	}
 }
