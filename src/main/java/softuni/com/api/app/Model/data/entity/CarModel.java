@@ -1,6 +1,7 @@
 package softuni.com.api.app.model.data.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import softuni.com.api.app.make.data.entity.Make;
 
 import java.time.LocalDateTime;
@@ -16,11 +17,11 @@ public class CarModel {
 	
 	@Column(name = "model_id")
 	private int modelId;
-	@Column
+	@Column(nullable = false)
 	private String name;
 	
 	@ManyToOne
-	@JoinColumn(name = "make_id", referencedColumnName = "id")
+	@JoinColumn(name = "make_id", referencedColumnName = "id",nullable = false)
 	private Make make;
 	
 	@Column(name="deleted_at")

@@ -1,15 +1,19 @@
 package softuni.com.api.app.model.controller;
 
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import softuni.com.api.app.model.data.dto.SaveModelDto;
 import softuni.com.api.app.model.service.ModelService;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -51,13 +55,23 @@ public class ModelController {
 	
 	@PostMapping("/save")
 	@ResponseBody
-	public ResponseEntity<HashMap<String,String>> createMakeModel(@RequestBody SaveModelDto saveMakeModelDto) {
+	public ResponseEntity<?> createMakeModel(@Valid @RequestBody SaveModelDto saveMakeModelDto,
+	                                                               BindingResult bindingResult) {
 		log.info("Attempt to save model {} with make {} ..", saveMakeModelDto.getModelName(), saveMakeModelDto.getMakeName());
-		
-		String make = saveMakeModelDto.getMakeName();
-		String model = saveMakeModelDto.getModelName();
-		HashMap<String,String> result = modelService.saveMakeWithModel(make, model);
+		if (bindingResult.hasErrors()) {
+			List<String> errors = bindingResult.getFieldErrors().stream()
+					.map(DefaultMessageSourceResolvable::getDefaultMessage)
+					.toList();
+			
+			HashMap<String, Object> body = new HashMap<>();
+			body.put("errors", errors);
+			
+			return ResponseEntity.badRequest().body(body);
+			
+		}
+		HashMap<String, String> result = modelService.saveMakeWithModel(saveMakeModelDto);
 		return ResponseEntity.ok(result);
+		
 		
 	}
 	

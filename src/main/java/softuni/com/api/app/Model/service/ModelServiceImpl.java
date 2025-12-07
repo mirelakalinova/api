@@ -12,6 +12,7 @@ import softuni.com.api.app.make.service.MakeService;
 import softuni.com.api.app.model.data.dto.AllModelsDtoByMake;
 import softuni.com.api.app.model.data.dto.ListModelDto;
 import softuni.com.api.app.model.data.dto.ModelDtoByMake;
+import softuni.com.api.app.model.data.dto.SaveModelDto;
 import softuni.com.api.app.model.data.entity.CarModel;
 import softuni.com.api.app.model.repo.ModelRepository;
 import softuni.com.api.config.RestClient;
@@ -97,38 +98,31 @@ public class ModelServiceImpl implements ModelService {
 	}
 	
 	@Override
-	public HashMap<String, String> saveMakeWithModel(String makeName, String modelName) {
+	public HashMap<String, String> saveMakeWithModel(SaveModelDto saveModelDto) {
+		String modelName = saveModelDto.getModelName();
+		String makeName = saveModelDto.getMakeName();
 		log.info("Attempt to save model with name {} and make name {}", modelName, makeName);
 		HashMap<String, String> result = new HashMap<>();
 		
 		Make make = makeService.getMakeByName(makeName);
-		Optional<CarModel> model = modelRepository.findByName(modelName);
+		
+		Optional<CarModel> model = modelRepository.findByNameAndMakeId(modelName, make.getId());
 		if (model.isEmpty()) {
 			model = Optional.of(new CarModel());
 			model.get().setName(modelName.toUpperCase());
 			model.get().setMake(make);
 			modelRepository.save(model.get());
-			result.put("message", "Успешно запазен модел: " + modelName + " към марка: "+ makeName);
+			result.put("message", "Успешно запазен модел: " + modelName + " към марка: " + makeName);
 			result.put("status", "success");
 			log.info("Successfully saved model with name {} and make name {}", modelName, makeName);
 			return result;
-		}
-		if (model.get().getMake().getName().equals(makeName)) {
+		} else {
 			log.info("Model with name {} and make name {} already exist!", modelName, makeName);
-			result.put("message", "Модел: " + modelName + " и марка: "+ makeName + " вече съществуват!");
+			result.put("message", "Модел: " + modelName + " и марка: " + makeName + " вече съществуват!");
 			result.put("status", "error");
 			return result;
 		}
 		
-		CarModel newModel = new CarModel();
-		newModel.setMake(make);
-		newModel.setName(modelName);
-		modelRepository.save(newModel);
-		result.put("message", "Успешно запазен модел: " + modelName + " към марка: "+ makeName);
-		result.put("status", "success");
-		
-		log.info("Successfully saved model with name {} and make name {}", modelName, makeName);
-		return result;
 	}
 	
 	@Override
@@ -138,7 +132,7 @@ public class ModelServiceImpl implements ModelService {
 		Optional<CarModel> model = modelRepository.findById(id);
 		if (model.isEmpty()) {
 			log.error("Response Status Exception in delete model method: make with id {}", id);
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Модел с #" + id + " не съществува!");
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Модел с #" + id + " не съществува!");
 		}
 		model.get().setDeletedAt(LocalDateTime.now());
 		modelRepository.save(model.get());

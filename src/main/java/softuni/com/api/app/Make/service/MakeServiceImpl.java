@@ -83,7 +83,7 @@ public class MakeServiceImpl implements MakeService {
 			log.info("Successfully found make with name {} in the database ", makeName);
 			return make.get();
 		}
-
+		
 		make = Optional.of(new Make());
 		make.get().setName(makeName);
 		return this.saveMake(make.get());
@@ -93,18 +93,16 @@ public class MakeServiceImpl implements MakeService {
 		return makeRepository.findByName(make);
 	}
 	
-
+	
 	private Make saveMake(Make make) {
 		log.info("Attempt to save make with name {} ", make.getName());
 		make.setName(make.getName().toUpperCase());
-		makeRepository.saveAndFlush(make);
-		Optional<Make> makeToReturn = makeRepository.findByName(make.getName());
-		if (makeToReturn.isPresent()) {
-			log.info("Successfully saved make with name {} ", make.getName());
-			return makeToReturn.get();
-		}
-		log.error("Runtime Exception in save method: make with name {}", make.getName());
-		throw new RuntimeException("Нещо се обърка!");
+		Make makeToReturn = makeRepository.saveAndFlush(make);
+		
+		log.info("Successfully saved make with name {} ", make.getName());
+		
+		return makeToReturn;
+		
 	}
 	
 	@Override
@@ -113,13 +111,13 @@ public class MakeServiceImpl implements MakeService {
 		
 		log.info("Attempt to delete make with id {} ", id);
 		Optional<Make> make = makeRepository.findById(id);
-		if(make.isEmpty()){
+		if (make.isEmpty()) {
 			log.error("Response Status Exception in deleteMake method: make with id {}", id);
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Макра с #" + id + " не съществува!");
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Макра с #" + id + " не съществува!");
 		}
 		log.info("Attempt to find all models of make to delete with id {} ", id);
 		List<CarModel> models = modelRepository.findAllByMake(make.get());
-		models.forEach(model-> {
+		models.forEach(model -> {
 			log.info("Attempt to set deleted at filed in models of make to delete with id {} ", id);
 			model.setDeletedAt(LocalDateTime.now());
 			modelRepository.save(model);

@@ -1,7 +1,11 @@
 package softuni.com.api.app.model.data.dto;
 
+import jakarta.validation.constraints.NotBlank;
+
 public class SaveModelDto {
+	@NotBlank(message = "Името na марката не трябва да е празно!")
 	private String makeName;
+	@NotBlank(message = "Името на модела не трябва да е празно!")
 	private String modelName;
 	
 	public SaveModelDto() {
