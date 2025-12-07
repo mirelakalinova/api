@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
-@Slf4j
+//@Slf4j
 public class ModelServiceImpl implements ModelService {
 	private static final Logger log = LoggerFactory.getLogger(ModelServiceImpl.class);
 	private final ModelRepository modelRepository;

@@ -18,7 +18,7 @@ public interface ModelRepository extends JpaRepository<CarModel, UUID> {
 	
 	List<CarModel> findAllByDeletedAtNull();
 	
-	Optional<CarModel> findByName(String modelName);
+	Optional<CarModel> findByNameAndMakeId(String modelName, UUID id);
 	
 	List<CarModel> findAllByMake(Make make);
 }
