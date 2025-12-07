@@ -8,7 +8,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
-import org.springframework.web.server.ResponseStatusException;
+import softuni.com.api.app.exception.NoSuchResourceException;
 import softuni.com.api.app.make.data.entity.Make;
 import softuni.com.api.app.make.repo.MakeRepository;
 import softuni.com.api.app.model.data.dto.AllModelsDtoByMake;
@@ -142,7 +142,7 @@ public class CarModelUTest {
 	void deleteModelById_Throw() {
 		UUID uuid = UUID.randomUUID();
 		when(modelRepository.findById(uuid)).thenReturn(Optional.empty());
-		assertThrows(ResponseStatusException.class, () -> {
+		assertThrows(NoSuchResourceException.class, () -> {
 			modelService.deleteModel(uuid);
 		});
 	}

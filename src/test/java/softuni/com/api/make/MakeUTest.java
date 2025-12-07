@@ -10,7 +10,7 @@ import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
-import org.springframework.web.server.ResponseStatusException;
+import softuni.com.api.app.exception.NoSuchResourceException;
 import softuni.com.api.app.make.data.dto.ListMakeDto;
 import softuni.com.api.app.make.data.dto.ListMakesDto;
 import softuni.com.api.app.make.data.dto.MakeDto;
@@ -88,7 +88,7 @@ public class MakeUTest {
 		
 		Make saved = captor.getValue();
 		assertEquals(125, saved.getMakeId());
-		assertEquals("Test Make", saved.getName());
+		assertEquals(dto.getMakeName().toUpperCase(), saved.getName());
 	}
 	
 	@Test
@@ -146,7 +146,7 @@ public class MakeUTest {
 		assertNotNull(result);
 		assertEquals(name, result.getName());
 		
-		verify(makeRepository, times(2)).findByName(name);
+		verify(makeRepository).findByName(name);
 		ArgumentCaptor<Make> captor = ArgumentCaptor.forClass(Make.class);
 		verify(makeRepository, times(1)).saveAndFlush(captor.capture());
 		Make toSaved = captor.getValue();
@@ -165,7 +165,7 @@ public class MakeUTest {
 	@Test
 	void deleteMakeById_Success() {
 		when(makeRepository.findById(makeFirst.getId())).thenReturn(Optional.of(makeFirst));
-		HashMap<String,String> result = makeService.deleteMake(makeFirst.getId());
+		HashMap<String, String> result = makeService.deleteMake(makeFirst.getId());
 		verify(makeRepository).save(makeFirst);
 		assertNotNull(makeFirst);
 		assertNotNull(makeFirst.getDeletedAt());
@@ -176,7 +176,7 @@ public class MakeUTest {
 	void deleteMakeById_Throw() {
 		UUID uuid = UUID.randomUUID();
 		when(makeRepository.findById(uuid)).thenReturn(Optional.empty());
-		assertThrows(ResponseStatusException.class, () -> {
+		assertThrows(NoSuchResourceException.class, () -> {
 			makeService.deleteMake(uuid);
 		});
 	}
@@ -190,7 +190,7 @@ public class MakeUTest {
 		
 		when(makeRepository.findById(uuid)).thenReturn(Optional.of(makeFirst));
 		when(modelRepository.findAllByMake(makeFirst)).thenReturn(List.of(model));
-		HashMap<String,String> result = makeService.deleteMake(makeFirst.getId());
+		HashMap<String, String> result = makeService.deleteMake(makeFirst.getId());
 		verify(makeRepository).save(makeFirst);
 		verify(modelRepository).save(model);
 		assertNotNull(makeFirst);
@@ -200,5 +200,8 @@ public class MakeUTest {
 		assertEquals("Успешно изтрита марка: Test", result.get("message"));
 	}
 	
+	@Test
+	void saveMake_Throw(){
 	
+	}
 }
