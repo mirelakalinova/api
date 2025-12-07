@@ -1,8 +1,6 @@
 package softuni.com.api.app.make.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +16,6 @@ import java.util.UUID;
 @RequestMapping("api")
 @Slf4j
 public class MakeController {
-	private static final Logger log = LoggerFactory.getLogger(MakeController.class);
 	private final MakeService makeService;
 	
 	public MakeController(MakeService makeService) {

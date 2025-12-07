@@ -2,8 +2,6 @@ package softuni.com.api.app.make.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import softuni.com.api.app.exception.NoSuchResourceException;
 import softuni.com.api.app.make.data.dto.ListMakeDto;
@@ -20,7 +18,6 @@ import java.util.*;
 @Service
 @Slf4j
 public class MakeServiceImpl implements MakeService {
-	private static final Logger log = LoggerFactory.getLogger(MakeServiceImpl.class);
 	private final MakeRepository makeRepository;
 	private final ModelRepository modelRepository;
 	private final RestClient restClient;
@@ -62,7 +59,12 @@ public class MakeServiceImpl implements MakeService {
 	
 	@Override
 	public boolean findByMakeId(int makeId) {
-		log.info("Attempt to find make with id {} ", makeId);
+		StackTraceElement caller = Thread.currentThread().getStackTrace()[2];
+		
+		if (!caller.getMethodName().contains("updateMakesData")) {
+			
+			log.info("Attempt to find make with id {} ", makeId);
+		}
 		Optional<Make> make = makeRepository.findByMakeId(makeId);
 		return make.isPresent();
 	}

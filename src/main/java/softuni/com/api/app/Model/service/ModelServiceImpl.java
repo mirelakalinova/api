@@ -2,8 +2,6 @@ package softuni.com.api.app.model.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import softuni.com.api.app.exception.NoSuchResourceException;
 import softuni.com.api.app.make.data.entity.Make;
@@ -20,9 +18,8 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
-//@Slf4j
+@Slf4j
 public class ModelServiceImpl implements ModelService {
-	private static final Logger log = LoggerFactory.getLogger(ModelServiceImpl.class);
 	private final ModelRepository modelRepository;
 	private final RestClient restClient;
 	private final MakeService makeService;

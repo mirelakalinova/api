@@ -3,8 +3,6 @@ package softuni.com.api.app.exception; // коригирано име
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +11,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.NoHandlerFoundException;
-import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -21,8 +18,6 @@ import java.util.HashMap;
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler  {
-	
-	private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 	
 	private HashMap<String, Object> createBody(HttpStatus status, String message, HttpServletRequest req) {
 		HashMap<String, Object> body = new HashMap<>();

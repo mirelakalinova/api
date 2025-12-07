@@ -2,8 +2,6 @@ package softuni.com.api.app.model.controller;
 
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -22,7 +20,6 @@ import java.util.UUID;
 @Slf4j
 public class ModelController {
 	
-	private static final Logger log = LoggerFactory.getLogger(ModelController.class);
 	private final ModelService modelService;
 	
 	public ModelController(ModelService modelService) {

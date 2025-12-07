@@ -1,7 +1,6 @@
 package softuni.com.api.app.model.data.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import softuni.com.api.app.make.data.entity.Make;
 
 import java.time.LocalDateTime;
