@@ -4,9 +4,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
+import softuni.com.api.app.exception.NoSuchResourceException;
 import softuni.com.api.app.make.data.entity.Make;
 import softuni.com.api.app.make.service.MakeService;
 import softuni.com.api.app.model.data.dto.AllModelsDtoByMake;
@@ -132,7 +131,7 @@ public class ModelServiceImpl implements ModelService {
 		Optional<CarModel> model = modelRepository.findById(id);
 		if (model.isEmpty()) {
 			log.error("Response Status Exception in delete model method: make with id {}", id);
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Модел с #" + id + " не съществува!");
+			throw new NoSuchResourceException("Модел с #" + id + " не съществува!");
 		}
 		model.get().setDeletedAt(LocalDateTime.now());
 		modelRepository.save(model.get());

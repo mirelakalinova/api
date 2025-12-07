@@ -4,9 +4,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
+import softuni.com.api.app.exception.NoSuchResourceException;
 import softuni.com.api.app.make.data.dto.ListMakeDto;
 import softuni.com.api.app.make.data.dto.ListMakesDto;
 import softuni.com.api.app.make.data.entity.Make;
@@ -113,7 +112,7 @@ public class MakeServiceImpl implements MakeService {
 		Optional<Make> make = makeRepository.findById(id);
 		if (make.isEmpty()) {
 			log.error("Response Status Exception in deleteMake method: make with id {}", id);
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Макра с #" + id + " не съществува!");
+			throw new NoSuchResourceException("Макра с #" + id + " не съществува!");
 		}
 		log.info("Attempt to find all models of make to delete with id {} ", id);
 		List<CarModel> models = modelRepository.findAllByMake(make.get());
